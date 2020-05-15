@@ -67,23 +67,23 @@ namespace CouriersPlease.Controllers
             return View(users);
         }
 
-        public IActionResult  SendOTP(int id, string FirstName, string MobileNumber)
+        public IActionResult  SendOTP(int UserId, string FirstName, string MobileNumber)
         {
             string pvtKey = "Couriers";
             Hotp hotp = new Hotp(Base32Encoding.ToBytes(pvtKey), hotpSize: 6);
 
            
-            ViewBag.Text = hotp.ComputeHOTP(id) + " OTP sent to customer";
+            ViewBag.Text = hotp.ComputeHOTP(UserId) + " OTP sent to customer";
 
             return View("Generate");
                         
         }
 
-        public IActionResult ValidateOTP(int id,  string MobileNumber , string OTP)
+        public IActionResult ValidateOTP(int UserId,  string MobileNumber , string OTP)
         {
             string pvtKey = "Couriers";
             Hotp hotp = new Hotp(Base32Encoding.ToBytes(pvtKey), hotpSize: 6);
-            if (hotp.VerifyHotp(OTP,id))
+            if (hotp.VerifyHotp(OTP, UserId))
             {
                 ViewBag.Text = " OTP is Valid";
             }
@@ -146,7 +146,7 @@ namespace CouriersPlease.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,FirstName,LastName,Address,MobileNumber")] Users users)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,FirstName,LastName,Address,MobileNumber,CourierID")] Users users)
         {
             if (id != users.UserId)
             {
