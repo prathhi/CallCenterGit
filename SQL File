@@ -1,0 +1,10 @@
+CREATE TABLE [dbo].[Users] (
+    [UserID]       INT            IDENTITY (1, 1) NOT NULL,
+    [FirstName]    NVARCHAR (MAX) NULL,
+    [LastName]     NVARCHAR (MAX) NULL,
+    [Address]      NVARCHAR (MAX) NULL,
+    [MobileNumber] NVARCHAR (MAX) NULL,
+    [CourierID] NVARCHAR(MAX) NULL, 
+    CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED ([UserID] ASC)
+);
+
